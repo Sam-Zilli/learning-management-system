@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BEST Hospitality Training</title>
+    <meta name="description" content="Login to BEST Hospitality Training Platform">
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #464855;
+      }
+
+      .login-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .logo {
+        margin-bottom: 30px;
+      }
+
+      .logo img {
+        height: 60px;
+        margin-bottom: 15px;
+      }
+
+      .logo h1 {
+        color: #464855;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .logo p {
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #464855;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #ffb554;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: #ffb554;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+      }
+
+      .btn:hover {
+        background: #ffa033;
+      }
+
+      .btn:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+      }
+
+      .error {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        display: none;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .spinner {
+        border: 3px solid #e9ecef;
+        border-top: 3px solid #ffb554;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+        color: #6c757d;
+        font-size: 12px;
+      }
+
+      @media (max-width: 480px) {
+        .login-container {
+          margin: 20px;
+          padding: 30px 20px;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://besthtc.org/best-hospitality-training-logo.png" alt="BEST Hospitality Training Logo">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue your learning journey</p>
+        </div>
+
+        <div class="error" id="error-message"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Signing in...</p>
+        </div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+
+        <div class="footer">
+            <p>&copy; 2024 BEST Hospitality Training Center. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v9+ (modular) -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAsY5nJiuwsSfecWvHNq4dPmcaddULBDCo",
+        authDomain: "online-course-platform-f2ec7.firebaseapp.com",
+        projectId: "online-course-platform-f2ec7",
+        storageBucket: "online-course-platform-f2ec7.appspot.com",
+        messagingSenderId: "1034567890123",
+        appId: "1:1034567890123:web:abcdef1234567890abcdef"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // DOM elements
+      const loginForm = document.getElementById('login-form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const loginBtn = document.getElementById('login-btn');
+      const errorMessage = document.getElementById('error-message');
+      const loading = document.getElementById('loading');
+
+      // Check if user is already logged in
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          window.location.href = 'index.html';
+        }
+      });
+
+      // Handle form submission
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+          showError('Please fill in all fields');
+          return;
+        }
+
+        try {
+          loading.style.display = 'block';
+          loginBtn.disabled = true;
+          errorMessage.style.display = 'none';
+
+          await signInWithEmailAndPassword(auth, email, password);
+          
+          // Redirect will happen automatically via onAuthStateChanged
+          
+        } catch (error) {
+          console.error('Login error:', error);
+          
+          let errorMsg = 'Login failed. Please try again.';
+          
+          switch (error.code) {
+            case 'auth/user-not-found':
+              errorMsg = 'No account found with this email address.';
+              break;
+            case 'auth/wrong-password':
+              errorMsg = 'Incorrect password. Please try again.';
+              break;
+            case 'auth/invalid-email':
+              errorMsg = 'Please enter a valid email address.';
+              break;
+            case 'auth/too-many-requests':
+              errorMsg = 'Too many failed attempts. Please try again later.';
+              break;
+            case 'auth/network-request-failed':
+              errorMsg = 'Network error. Please check your connection.';
+              break;
+          }
+          
+          showError(errorMsg);
+        } finally {
+          loading.style.display = 'none';
+          loginBtn.disabled = false;
+        }
+      });
+
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+      }
+
+      // Auto-focus email input
+      emailInput.focus();
+    </script>
+</body>
+</html>
