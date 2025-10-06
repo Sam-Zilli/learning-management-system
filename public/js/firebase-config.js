@@ -1,12 +1,16 @@
 // Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAPi06avlL2IUMthALm63HTqMG6I57o_8k",
-    authDomain: "learning-management-syst-d37bb.firebaseapp.com",
-    projectId: "learning-management-syst-d37bb",
-    storageBucket: "learning-management-syst-d37bb.firebasestorage.app",
-    messagingSenderId: "730485178401",
-    appId: "1:730485178401:web:6722e21285bded9fb0a360"
-};
+const firebaseConfig = 
+{
+    "projectId": "learning-management-syst-d37bb",
+    "appId": "1:730485178401:web:e8468856be144bcbb0a360",
+    "storageBucket": "learning-management-syst-d37bb.firebasestorage.app",
+    "apiKey": "AIzaSyAPi06avlL2IUMthALm63HTqMG6I57o_8k",
+    "authDomain": "learning-management-syst-d37bb.firebaseapp.com",
+    "messagingSenderId": "730485178401",
+    "projectNumber": "730485178401",
+    "version": "2"
+  }
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

@@ -1,0 +1,13 @@
+{
+  "name": "firebase-export-script",
+  "version": "1.0.0",
+  "description": "Export user progress from Firebase to CSV",
+  "main": "export-user-progress.js",
+  "scripts": {
+    "export": "node export-user-progress.js"
+  },
+  "dependencies": {
+    "csv-writer": "^1.6.0",
+    "firebase-admin": "^12.7.0"
+  }
+}
